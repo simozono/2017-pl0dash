@@ -26,20 +26,20 @@ class Pl0DashVM
 
   def execute(show: false)
     @reg[:pc] = 1
-    ret = -1
+    status = false
     loop do
       item = @memory[@reg[:pc]]
       if show
         printf "%4d %s\n", @reg[:pc],
              [item[0], item[1..2].join(',')].join(' ').strip
       end
-      ret = execute_line(@memory[@reg[:pc]])
+      status = execute_line(@memory[@reg[:pc]])
       if show
         show_reg
         show_heap
         show_stack
       end
-      break if ret <= 0
+      break unless status
     end
   end
 
@@ -87,7 +87,7 @@ class Pl0DashVM
       @reg[:pc] += 1
     when 'END'
       @reg[:pc] = -1
-      return -1
+      return false
     # 以下演算子
     when 'PLUS'
       @reg[:c] = @reg[:a] + @reg[:b]
@@ -123,7 +123,6 @@ class Pl0DashVM
       @reg[:c] = @reg[:a].to_i >= @reg[:b].to_i ? 1 : 0
       @reg[:pc] += 1
     end
-    return 1
   end
 
   private
@@ -146,20 +145,15 @@ class Pl0DashVM
   def ref_op(opr)
     case opr.downcase
     when /^(\d+)$/ # 数字
-      # puts $1
-      return $1.to_i
+      $1.to_i
     when /^([a-z]+)$/ # レジスタのはず
-      # puts $1
-      return @reg[$1.to_sym]
+      @reg[$1.to_sym]
     when /^\#\((\d+)\)$/ # #(数字)のはず
-      # puts $1
-      return @memory[$1.to_i]
+      @memory[$1.to_i]
     when /^\#\(([a-z]+)\)$/ # #(レジスタ)のはず
-      # puts $1.to_sym
-      return @memory[@reg[$1.to_sym]]
+      @memory[@reg[$1.to_sym]]
     when /^\#\(fp([\+|\-]\d+)\)$/ # #(FP(+|-)数字)のはず
-      # puts "#{@reg[:fp]+$1.to_i}"
-      return @memory[@reg[:fp] + $1.to_i]
+      @memory[@reg[:fp] + $1.to_i]
     else
       abort 'ERROR'
     end
@@ -186,9 +180,9 @@ class Pl0DashVM
   end
 
   def show_heap
-    i = 799
+    i = HEAP_START - 1
     puts '    Heap Area'
-    @memory[(i + 1)...810].each_slice(5) do |row|
+    @memory[HEAP_START...(HEAP_START + 10)].each_slice(5) do |row|
       puts '   ' + row.map { |val| i += 1; ' %4d:%4s' % [i, val] }.join(' ')
     end
   end
