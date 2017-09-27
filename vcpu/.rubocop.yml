@@ -1,0 +1,4 @@
+Style/AsciiComments:
+  Enabled: false
+RedundantReturn:
+  Enabled: false
