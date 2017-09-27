@@ -11,7 +11,7 @@ class Pl0DashVM
     i = 1
     lines.each do |line|
       @memory[i] = line.split(/\s+|\s*,\s*/)
-      i          += 1
+      i += 1
     end
   end
 
@@ -71,9 +71,9 @@ class Pl0DashVM
         @reg[:sp] -= 1
         @reg[:pc] += 1
       when 'CALL'
-        @reg[:sp]          -= 1
+        @reg[:sp] -= 1
         @memory[@reg[:sp]] = @reg[:pc] + 1
-        @reg[:pc]          = ref_op(opr1)
+        @reg[:pc] = ref_op(opr1)
       when 'RET'
         @reg[:pc] = @memory[@reg[:sp]]
         @reg[:sp] += 1
@@ -122,7 +122,7 @@ class Pl0DashVM
         @reg[:c]  = @reg[:a].to_i >= @reg[:b].to_i ? 1 : 0
         @reg[:pc] += 1
       else
-        abort 'ERROR'
+        abort 'ASM CODE ERROR'
     end
   end
 
@@ -132,14 +132,14 @@ class Pl0DashVM
     case sto_op.downcase
       when /^([a-z]+)$/ # レジスタのはず
         @reg[$1.to_sym] = value
-      when /^\#\((\d+)\)$/ # #(数字)のはず
+      when /^#\((\d+)\)$/ # #(数字)のはず
         @memory[$1.to_i] = value
-      when /^\#\(([a-z]+)\)$/ # #(レジスタ)のはず
+      when /^#\(([a-z]+)\)$/ # #(レジスタ)のはず
         @memory[@reg[$1.to_sym]] = value
-      when /^\#\(fp([\+|\-]\d+)\)$/ # #(FP(+|-)数字)のはず
+      when /^#\(fp([+|\-]\d+)\)$/ # #(FP(+|-)数字)のはず
         @memory[@reg[:fp] + $1.to_i] = value
       else
-        abort 'ERROR'
+        abort 'ASM OPERAND2 ERROR'
     end
   end
 
@@ -149,14 +149,14 @@ class Pl0DashVM
         $1.to_i
       when /^([a-z]+)$/ # レジスタのはず
         @reg[$1.to_sym]
-      when /^\#\((\d+)\)$/ # #(数字)のはず
+      when /^#\((\d+)\)$/ # #(数字)のはず
         @memory[$1.to_i]
-      when /^\#\(([a-z]+)\)$/ # #(レジスタ)のはず
+      when /^#\(([a-z]+)\)$/ # #(レジスタ)のはず
         @memory[@reg[$1.to_sym]]
-      when /^\#\(fp([\+|\-]\d+)\)$/ # #(FP(+|-)数字)のはず
+      when /^#\(fp([+|\-]\d+)\)$/ # #(FP(+|-)数字)のはず
         @memory[@reg[:fp] + $1.to_i]
       else
-        abort 'ERROR'
+        abort 'ASM OPERAND1 ERROR'
     end
   end
 
@@ -176,7 +176,9 @@ class Pl0DashVM
     msg = "============\n"
     msg += "    Register\n"
     msg += '    '
-    msg += @reg.map { |reg, val| '%3s:%4d' % [reg, val] }.join(' ')
+    msg += @reg.map do |reg, val|
+      format('%3s:%4d', reg, val)
+    end.join(' ')
     puts msg
   end
 
@@ -187,7 +189,7 @@ class Pl0DashVM
       msg += '   '
       msg += row.map do |val|
         i += 1
-        ' %4d:%4s' % [i, val]
+        format(' %4d:%4s', i, val)
       end.join(' ')
       msg += "\n"
     end
@@ -201,7 +203,7 @@ class Pl0DashVM
       msg += '   '
       msg += row.map do |val|
         i += 1
-        ' %4d:%4s' % [i, (i < @reg[:sp] ? nil : val)]
+        format(' %4d:%4s', i, (i < @reg[:sp] ? nil : val))
       end.join(' ')
       msg += "\n"
     end
