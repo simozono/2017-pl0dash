@@ -63,7 +63,7 @@ class Pl0DashVM
       @reg[:sp] -= 1
       @reg[:pc] += 1
     when 'CALL'
-      @reg[:sp] -= 1
+      @reg[:sp]          -= 1
       @memory[@reg[:sp]] = @reg[:pc] + 1
       @reg[:pc]          = ref_op(opr1)
     when 'RET'
@@ -81,37 +81,37 @@ class Pl0DashVM
       return false
       # 以下演算子
     when 'PLUS'
-      @reg[:c] = @reg[:a] + @reg[:b]
+      @reg[:c]  = @reg[:a] + @reg[:b]
       @reg[:pc] += 1
     when 'MINUS'
-      @reg[:c] = @reg[:a] - @reg[:b]
+      @reg[:c]  = @reg[:a] - @reg[:b]
       @reg[:pc] += 1
     when 'MULTI'
-      @reg[:c] = @reg[:a] * @reg[:b]
+      @reg[:c]  = @reg[:a] * @reg[:b]
       @reg[:pc] += 1
     when 'DIV'
-      @reg[:c] = (@reg[:a] / @reg[:b]).to_i
+      @reg[:c]  = (@reg[:a] / @reg[:b]).to_i
       @reg[:pc] += 1
     when 'CMPODD'
-      @reg[:c] = @reg[:a].odd? ? 1 : 0
+      @reg[:c]  = @reg[:a].odd? ? 1 : 0
       @reg[:pc] += 1
     when 'CMPEQ'
-      @reg[:c] = @reg[:a].to_i == @reg[:b].to_i ? 1 : 0
+      @reg[:c]  = @reg[:a].to_i == @reg[:b].to_i ? 1 : 0
       @reg[:pc] += 1
     when 'CMPNOTEQ'
-      @reg[:c] = @reg[:a].to_i != @reg[:b].to_i ? 1 : 0
+      @reg[:c]  = @reg[:a].to_i != @reg[:b].to_i ? 1 : 0
       @reg[:pc] += 1
     when 'CMPLT'
-      @reg[:c] = @reg[:a].to_i < @reg[:b].to_i ? 1 : 0
+      @reg[:c]  = @reg[:a].to_i < @reg[:b].to_i ? 1 : 0
       @reg[:pc] += 1
     when 'CMPGT'
-      @reg[:c] = @reg[:a].to_i > @reg[:b].to_i ? 1 : 0
+      @reg[:c]  = @reg[:a].to_i > @reg[:b].to_i ? 1 : 0
       @reg[:pc] += 1
     when 'CMPLE'
-      @reg[:c] = @reg[:a].to_i <= @reg[:b].to_i ? 1 : 0
+      @reg[:c]  = @reg[:a].to_i <= @reg[:b].to_i ? 1 : 0
       @reg[:pc] += 1
     when 'CMPGE'
-      @reg[:c] = @reg[:a].to_i >= @reg[:b].to_i ? 1 : 0
+      @reg[:c]  = @reg[:a].to_i >= @reg[:b].to_i ? 1 : 0
       @reg[:pc] += 1
     else
       abort 'ASM CODE ERROR'
