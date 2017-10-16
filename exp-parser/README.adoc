@@ -1,0 +1,69 @@
+= 簡単な文法の構文解析器
+:Author: 鹿児島大学 学術情報基盤センター 下園 幸一
+:Email: <simozono@cc.kagoshima-u.ac.jp>
+:doctype: article
+:compat-mode!:
+:source-highlighter: coderay
+:icons: font
+:copyright: Computing and Communications Center, Kagoshima University
+:notitle:
+:sectnums:
+
+== 構文解析器の作成方法
+以下のようにして構文解析器を作成できます。
+
+[source,bash]
+----
+$ cd exp-parser
+$ make
+いろいろ画面に出力される
+$
+----
+
+== 文法G4の構文解析器のプログラム
+第20回授業(後期05回)p.266 で示した文法に対応する構文解析器等です。
+授業で提示した仮想CPU用のアセンブリ言語プログラムを出力します。
+
+=== ファイルの説明
+* link:exp-ll-parser01.c[LL(1)構文解析器本体: (exp-ll-parser01.c)]
+* link:exp-scanner.l[字句解析用サブルーチン(lex版): (exp-scanner.l)]
+* link:../scanner/tokentable.h[トークン定義ファイル: (../scanner/tokentable.h)]
+* link:../sample/exp01.txt[サンプルファイル: (../sample/exp01.txt)]
+
+=== 実行方法と実行結果
+[source, shell]
+----
+$ ./exp-ll-parser01 ../sample/exp01.txt
+MOVE 3, A
+PUSH A
+MOVE 2, A
+PUSH A
+POP B
+POP A
+...
+----
+
+== 簡単な文法G4の拡張版
+第20回授業(後期05回)p.266 で示した文法で、さらに引き算と割り算ができ
+るようにした物です。授業で提示した仮想CPU用のアセンブリ言語プログラムを出力します。
+
+=== ファイルの説明
+* link:exp-ll-parser02.c[LL(1)構文解析器本体: (exp-ll-parser02.c)]
+* link:../sample/exp02.txt[サンプルファイル: (../sample/exp02.txt)]
+
+=== 実行方法と実行結果
+
+[source,shell]
+----
+$ ./exp-ll-parser02 ../sample/exp02.txt
+MOVE 8, A
+PUSH A
+LOAD 5, A
+PUSH A
+POP B
+...
+----
+
+== 上記に対する共通ファイル
+=== ファイルの説明
+* link:exp-scanner.l[字句解析用サブルーチン(lex版) (exp-scanner.l)]
