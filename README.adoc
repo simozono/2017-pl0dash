@@ -19,16 +19,14 @@
 == プログラムの説明
 
 === link:scanner[字句解析器(scannerディレクトリ下)]
-  * link:scanner/pl0-scanner.l[「PL/0'」用字句解析器(lex版)]
+前期の授業の字句解析プログラムです。字句解析器自動生成ツール`lex`を利用して、
+字句解析器を作成しています。
+
+* link:scanner/pl0-scanner.l[「PL/0'」用字句解析器(lex版) (scanner/pl0-scanner.l)]
 
 === link:exp-parser[簡単な文法G4(exp-parserディレクトリ下)]
-第20回授業(後期05回)p.266 で示した文法に対応する構文解析器等です。
-
-* 第20回授業(後期第05回) p. 267～の文法G4構文解析器のプログラム
-** link:exp-parser/exp-scanner.l[字句解析用サブルーチン(lex版)]
-** link:scanner/tokentable.h[トークン定義ファイル]
-** link:exp-parser/exp-ll-parser01.c[LL(1)構文解析器本体]
-** link:sample/exp01.txt[サンプルファイル]
+第20回授業(後期05回)p.266 で示した文法に対応する構文解析器等です。詳細は、
+link:exp-parser/README.adoc[README.adoc]を読んでください。
 
 == 利用方法
 

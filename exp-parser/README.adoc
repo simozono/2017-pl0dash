@@ -25,10 +25,9 @@ $
 授業で提示した仮想CPU用のアセンブリ言語プログラムを出力します。
 
 === ファイルの説明
-* link:exp-ll-parser01.c[LL(1)構文解析器本体: (exp-ll-parser01.c)]
-* link:exp-scanner.l[字句解析用サブルーチン(lex版): (exp-scanner.l)]
-* link:../scanner/tokentable.h[トークン定義ファイル: (../scanner/tokentable.h)]
-* link:../sample/exp01.txt[サンプルファイル: (../sample/exp01.txt)]
+link:exp-ll-parser01.c[LL(1)構文解析器本体: (exp-ll-parser01.c)]:: 本C言語プログラムが
+LL(1)再帰下降型構文解析器の本体となります。
+link:../sample/exp01.txt[サンプルファイル: (../sample/exp01.txt)]:: 四則演算のサンプルです。
 
 === 実行方法と実行結果
 [source, shell]
@@ -44,12 +43,13 @@ POP A
 ----
 
 == 簡単な文法G4の拡張版
-第20回授業(後期05回)p.266 で示した文法で、さらに引き算と割り算ができ
-るようにした物です。授業で提示した仮想CPU用のアセンブリ言語プログラムを出力します。
+第20回授業(後期05回)p.266 で示した文法で、さらに引き算と割り算ができるようにしたものです。
+授業で提示した仮想CPU用のアセンブリ言語プログラムを出力します。
 
 === ファイルの説明
-* link:exp-ll-parser02.c[LL(1)構文解析器本体: (exp-ll-parser02.c)]
-* link:../sample/exp02.txt[サンプルファイル: (../sample/exp02.txt)]
+link:exp-ll-parser02.c[LL(1)構文解析器本体: (exp-ll-parser02.c)]:: 本C言語プログラムが
+LL(1)再帰下降型構文解析器の本体となります。
+link:../sample/exp02.txt[サンプルファイル: (../sample/exp02.txt)]:: 四則演算のサンプルです。
 
 === 実行方法と実行結果
 
@@ -66,4 +66,7 @@ POP B
 
 == 上記に対する共通ファイル
 === ファイルの説明
-* link:exp-scanner.l[字句解析用サブルーチン(lex版) (exp-scanner.l)]
+link:exp-scanner.l[字句解析用サブルーチン(lex版): (exp-scanner.l)]:: 本ソースプログラムを
+字句解析器自動生成ツール`lex`が処理し、自動的にC言語で書かれた字句解析サブルーチンが作成されます。
+link:../scanner/tokentable.h[トークン定義ファイル: (../scanner/tokentable.h)]:: 字句解析器により
+トークンに分割されるわけですが、そのトークン(実体は数値)を定義しています。
