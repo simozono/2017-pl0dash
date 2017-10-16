@@ -111,7 +111,7 @@ void parse_Factor() { /* F → (E)|T_NUMBER */
     if (nextToken != T_RPAR) parse_error(")がない");
     nextToken = getToken();
   } else if (nextToken == T_NUMBER) {
-    printf("LOAD A, %s\n", yytext);
+    printf("MOVE %s, A\n", yytext);
     printf("PUSH A\n");
     nextToken = getToken();
   } else {

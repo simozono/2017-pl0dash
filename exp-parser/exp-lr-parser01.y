@@ -34,7 +34,7 @@ term:		term T_MULTI factor
 
 factor:		T_LPAR expression T_RPAR
 		| T_NUMBER
-			{ printf("LOAD A, %s\n", yytext);
+			{ printf("MOVE %s, A\n", yytext);
 			  printf("PUSH A\n");
                         }
 		;

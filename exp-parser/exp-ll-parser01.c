@@ -106,7 +106,7 @@ void parse_Factor() { /* F → (E)|T_NUMBER */
     nextToken = getToken();
   } else if (nextToken == T_NUMBER) {
     /* T_NUMBER のコード生成はじまり */
-    printf("LOAD A, %s\n", yytext);
+    printf("MOVE %s, A\n", yytext);
     printf("PUSH A\n");
     /* T_NUMBER のコード生成おわり */
     nextToken = getToken();
