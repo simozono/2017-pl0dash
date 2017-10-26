@@ -41,7 +41,7 @@
 === 値の代入系
 メモリからレジスタへの値の代入およびレジスタからメモリへの値の代入を行います。
 
-[cols="1,2m,4", %autowidth]
+[cols="1,2,4", %autowidth]
 |===
 |命令|使用法|意味
 
@@ -49,16 +49,16 @@
 |MOVE 数字, reg1
 |数字をレジスタre1に代入します。
 
-m|MOVE 数字, #(addr)
+|MOVE 数字, #(addr)
 |数字を#(addr)で示されるメモリ番地に代入します。
 
-m|MOVE reg1, reg2
+|MOVE reg1, reg2
 |レジスタreg1の値をレジスタreg2に代入します。
 
-m|MOVE reg1, #(addr)
+|MOVE reg1, #(addr)
 |レジスタreg1の値を#(addr)で示されるメモリ番地に代入します。
 
-m|MOVE #(addr), reg1
+|MOVE #(addr), reg1
 |#(addr)で示されるメモリ番地の値をレジスタreg1に代入します。
 |===
 
@@ -66,7 +66,7 @@ m|MOVE #(addr), reg1
 
 スタックの動作はフルスタック(Full Stack)の下降方向(Decrement)とします。
 
-[cols="1,2m,4", %autowidth]
+[cols="1,2,4", %autowidth]
 |===
 | 命令  |  使用法 | 意味
 
@@ -90,7 +90,7 @@ m|MOVE #(addr), reg1
 JMP, JPC,CALL命令の第1引数はジャンプ先のメモリ番地を表します。
 RET命令の引数はこれらと**意味が違う**ことに注意してください。
 
-[cols="1,2m,4", %autowidth]
+[cols="1,2,4", %autowidth]
 |===
 |命令|使用法|意味
 
@@ -119,7 +119,7 @@ RET命令の引数はこれらと**意味が違う**ことに注意してくだ�
 レジスタAの内容とレジスタBの内容で算術演算を行います。
 結果はレジスタCに代入されます。
 
-[cols="1,1m,4", %autowidth]
+[cols="1,1,4", %autowidth]
 |===
 |命令|使用法|意味
 
@@ -135,7 +135,7 @@ RET命令の引数はこれらと**意味が違う**ことに注意してくだ�
 それ以外の場合はレジスタCは0となります。
 CMPODDのみがレジスタAのみで判断されます。
 
-[cols="1,1m,4", %autowidth]
+[cols="1,1,4", %autowidth]
 |===
 |命令|使用法|意味
 
@@ -150,7 +150,7 @@ CMPODDのみがレジスタAのみで判断されます。
 
 === その他
 
-[cols="1,2m,4", %autowidth]
+[cols="1,2,4", %autowidth]
 |===
 |命令|使用法|意味
 
