@@ -29,6 +29,26 @@
 link:exp-parser/README.adoc[README.adoc]を読んでください。
 
 == 利用方法
+=== Windows Subsystem for Linux (旧名 Bash on Windows on Ubuntsu) について
+Windows (64bit 版 Creators Update 以降)では、Windows Subsystem for Linux を利用すると
+以下を利用することができます。Windows Subsystem for Linux のインストール方法等は
+
+* https://web.chaperone.jp/w/index.php?windows%2FWindows%20Subsystem%20for%20Linux[windows/Windows Subsystem for Linux]
+* http://www.buildinsider.net/enterprise/wsl/01[Windows Subsystem for Linuxとは？
+そのインストールと使い方 - Build Insider]
+
+等を参考にしてください。
+その後、gcc(Cコンパイラ)やflex(字句解析器作成ツール), bison(LALR構文解析器作成ツール)を
+インストールする必要があります。以下にその例を挙げます。
+[source,bash]
+----
+$ sudo apt install build-essential
+$ sudo apt install git flex bison
+----
+
+=== ソースファイルの取得
+
+github からソースファイルを取得します。
 
 [source, bash]
 ----
