@@ -28,6 +28,11 @@
 第20回授業(後期05回)p.266 で示した文法に対応する構文解析器等です。詳細は、
 link:exp-parser/README.adoc[README.adoc]を読んでください。
 
+=== link:pl0-compiler[PL/0'用構文解析器/コンパイラ(pl0-compilerディレクトリ下)]
+第20回授業(後期05回)p.276で示したPL/0'用構文解析器や、その後のPL/0'用構文解析器、
+記号表の実装、コード生成まで行ったコンパイラのソースコードがあります。
+詳細は、link:pl0-compiler/README.adoc[README.adoc]を読んでください。
+
 == 利用方法
 === Windows Subsystem for Linux (旧名 Bash on Windows on Ubuntsu) について
 Windows (64bit 版 Creators Update 以降)では、Windows Subsystem for Linux を利用すると
