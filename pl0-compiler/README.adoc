@@ -115,3 +115,47 @@ $ ./pl0-ll-parser02 ../sample/test07.pl0
 構文解析は全て成功
 $
 ----
+
+== PL/0'のコンパイラプログラム(関数未対応版)
+第26回(後期11回)で説明した PL/0'のコンパイラです。if文やwhile文に対応していますが、
+関数(function)には対応していません。
+
+=== ファイルの説明
+link:pl0-ll-compiler01.c[LL(1)構文解析器本体: (pl0-ll-compiler01.c)]:: 本C言語プログラムが
+LL(1)再帰下降型構文解析を行い、コード生成部を呼び出しています。コンパイラ本体と言えます。
+link:pl0-scanner.l[字句解析用サブルーチン(lex版): (pl0-scanner.l)]:: 前述と同じです。
+link:misc.c[エラー処理関数等の定義:(misc.c)]:: 前述と同じです。
+link:misc.h[エラー処理関数の宣言:(misc.h)]:: 前述と同じです。
+link:symbol_table02.c[記号表および記号表用関数の定義:(symbol_table02.c)]::
+本プログラム内の関数で、記号表および記号表にアクセスする関数を定義しています。
+`symbol_table01.c`と比較して、変数の格納アドレス/定数の値処理ができるように拡張されています。
+また、第27回(関数対応のコンパイラ)に向けて、関数の情報も扱えるように拡張されています。
+link:symbol_table01.h[記号表用関数の宣言:(symbol_table02.h)]:: `symbol_table02.c`
+用のヘッダーファイルです。
+
+=== 実行方法と実行結果
+[source,bash]
+----
+$ ./pl0-ll-compiler01 -h
+./pl0-ll-compiler01 [-h] [-n] [-o output_file] source_file
+$
+$ ./pl0-ll-compiler01 ../sample/test09.pl0
+MOVE 1,A
+PUSH A
+POP A
+PRINT A
+PRINTLN
+END
+$
+$ ./pl0-ll-compiler01 -n ../sample/test09.pl0
+   1 MOVE 1,A
+   2 PUSH A
+   3 POP A
+   4 PRINT A
+   5 PRINTLN
+   6 END
+$
+$ ./pl0-ll-compiler01 ../sample/test09.pl0 | ../vcpu/pl0dashvm.rb
+1
+$
+----
