@@ -6,13 +6,10 @@
 #include "misc.h"
 #include "symbol_table02.h"
 
-#define MAX_TABLE_SIZE 200  /* 記号表の大きさ */
-#define MAX_STACK_SIZE  30  /* スタックの大きさ(ブロックレベルに対応) */
-
 static struct table_entry symbol_table[MAX_TABLE_SIZE]; /* 記号表 */
 static int symbol_table_ptr = 0; /* 記号表の現在位置を示すポインタ */
 
-static int heap_address   = 800; /* 大域変数(ブロック0)用ヒープアドレス */
+static int heap_address   = START_HEAP_ADDRESS; /* 大域変数(ブロック0)用ヒープアドレス */
 static int func_var_addr  = 0;   /* 関数内定数/変数のアドレス  */
 static int func_parm_addr = 0;   /* 関数内仮引数のアドレス     */
 
@@ -37,7 +34,7 @@ int double_register_check(char *id_name) {
 /* id_name 名で記号表を検索 */
 int search_table(char *id_name) {
   int i = symbol_table_ptr;
-  while(strcmp(id_name, symbol_table[i].id_name) && i > 0) { 
+  while(strcmp(id_name, symbol_table[i].id_name) && i > 0) {
     i--;
   }
   return i; /* 0 だったら登録されていない。1以上は記号表の位置 */
@@ -167,7 +164,7 @@ int end_param(int func_ptr) {
 void blocklevel_up() {
   func_var_addr =  0;
   func_parm_addr = 0;
-  
+
   if (stack_ptr == 0) { /* 初期化 */
     stack_for_symbol_table[stack_ptr] = 0;
   }
@@ -195,9 +192,9 @@ void reference_info(char *ref_name, int ref_line, int ptr) {
   struct table_entry t_ent ;
   char *type_st;
   int address;
-  
+
   t_ent = get_table(ptr);
-  
+
   switch (t_ent.type) {
   case const_id:
     type_st = "定数"; address = t_ent.data.value;

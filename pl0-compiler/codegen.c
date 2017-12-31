@@ -27,7 +27,7 @@ int gencode_arg_V_ST(Opr o, int value, int ptr); /* 引数として値と記号�
 int next_code(); /* 次の命令が入る番地を求める */
 void list_code(FILE *fp, int n_flag); /* コードの出力 */
 void backpatch(int code_lineno); /* バックパッチ用 */
-  
+
 /* 以下は本ファイルでのみ使用 */
 int add_code(char *opline);
 int add_code_val(char *fmt, int value);
@@ -37,7 +37,7 @@ int add_code_addr(char *opr, int address);
 void list_code(FILE *fp, int n_flag){ /* リストを出力 */
   int i = 1;
   while (i <= code_ptr) {
-    if (code[i].address < 0) 
+    if (code[i].address < 0)
       if (!n_flag)
 	fprintf(fp,"%s\n", code[i].op_line);
       else
@@ -207,7 +207,7 @@ int add_code_sharpval(char *fmt, int value) {
   code_ptr++;
 
   /* value はヒープアドレスかFPからの相対位置のはず */
-  if (value < 800) {
+  if (value < START_HEAP_ADDRESS) {
     sprintf(str_val, "FP%+d", value);
   } else {
     sprintf(str_val, "%d", value);
@@ -220,7 +220,7 @@ int add_code_sharpval(char *fmt, int value) {
 int add_code_addr(char *opr, int address) {
   code_ptr++;
   strcpy(code[code_ptr].op_line, opr);
-  code[code_ptr].address = address; 
+  code[code_ptr].address = address;
   return code_ptr;
 }
 

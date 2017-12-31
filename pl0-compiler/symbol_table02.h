@@ -2,6 +2,10 @@
 
 #define MAX_ID_NAME     31  /* ID の最大値 */
 
+#define MAX_TABLE_SIZE 200  /* 記号表の大きさ */
+#define MAX_STACK_SIZE  30  /* スタックの大きさ(ブロックレベルに対応) */
+#define START_HEAP_ADDRESS 800 /* ヒープ領域の開始アドレス */
+
 typedef enum { /* 記号表に登録する名前の種別 */
   const_id,  /* 定数 */
   var_id,    /* 変数 */
