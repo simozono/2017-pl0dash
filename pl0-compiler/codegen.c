@@ -1,4 +1,6 @@
-/* codegen.c */
+/* codegen.c コード生成部
+ *   実際のアセンブリコードを出力する部分です。
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,8 +10,9 @@
 
 #define MAX_OP_LINE  20 /* アセンブリコード一行の最大長 */
 #define MAX_CODE    800 /* アセンブリコードの最大行数   */
+#define NO_USE       -1
 
-int code_ptr = 0;
+int last_code_address = 0; /* 現在までに生成したアセンブリコードの最終番地 */
 
 typedef struct {
   char op_line[MAX_OP_LINE];
@@ -26,7 +29,7 @@ int gencode_arg_V_ST(Opr o, int value, int ptr); /* 引数として値と記号�
 
 int next_code(); /* 次の命令が入る番地を求める */
 void list_code(FILE *fp, int n_flag); /* コードの出力 */
-void backpatch(int code_lineno); /* バックパッチ用 */
+void backpatch(int code_address); /* バックパッチ用 */
 
 /* 以下は本ファイルでのみ使用 */
 int add_code(char *opline);
@@ -36,7 +39,7 @@ int add_code_addr(char *opr, int address);
 
 void list_code(FILE *fp, int n_flag){ /* リストを出力 */
   int i = 1;
-  while (i <= code_ptr) {
+  while (i <= last_code_address) {
     if (code[i].address < 0)
       if (!n_flag)
 	fprintf(fp,"%s\n", code[i].op_line);
@@ -189,22 +192,22 @@ int gencode_arg_ST(Opr o, int ptr) {
 }
 
 int add_code(char *opline) {
-  code_ptr++;
-  strcpy(code[code_ptr].op_line, opline);
-  code[code_ptr].address = -1; /* addressは使用しない */
-  return code_ptr;
+  last_code_address++;
+  strcpy(code[last_code_address].op_line, opline);
+  code[last_code_address].address = NO_USE; /* addressは使用しない */
+  return last_code_address;
 }
 
 int add_code_val(char *fmt, int value) {
-  code_ptr++;
-  sprintf(code[code_ptr].op_line, fmt, value);
-  code[code_ptr].address = -1; /* addressは使用しない */
-  return code_ptr;
+  last_code_address++;
+  sprintf(code[last_code_address].op_line, fmt, value);
+  code[last_code_address].address = NO_USE; /* addressは使用しない */
+  return last_code_address;
 }
 
 int add_code_sharpval(char *fmt, int value) {
   char str_val[15];
-  code_ptr++;
+  last_code_address++;
 
   /* value はヒープアドレスかFPからの相対位置のはず */
   if (value < START_HEAP_ADDRESS) {
@@ -212,22 +215,22 @@ int add_code_sharpval(char *fmt, int value) {
   } else {
     sprintf(str_val, "%d", value);
   }
-  sprintf(code[code_ptr].op_line, fmt, str_val);
-  code[code_ptr].address = -1; /* addressは使用しない */
-  return code_ptr;
+  sprintf(code[last_code_address].op_line, fmt, str_val);
+  code[last_code_address].address = NO_USE; /* addressは使用しない */
+  return last_code_address;
 }
 
 int add_code_addr(char *opr, int address) {
-  code_ptr++;
-  strcpy(code[code_ptr].op_line, opr);
-  code[code_ptr].address = address;
-  return code_ptr;
+  last_code_address++;
+  strcpy(code[last_code_address].op_line, opr);
+  code[last_code_address].address = address;
+  return last_code_address;
 }
 
-void backpatch(int code_lineno) { /* 現在のコード行の次の行を入れる */
-  code[code_lineno].address = code_ptr+1;
+void backpatch(int code_address) { /* 現在のコードの次の番地をバックパッチ */
+  code[code_address].address = last_code_address+1;
 }
 
-int next_code() {
-  return code_ptr+1;
+int next_code() { /* 現在の次の番地を返す */
+  return last_code_address+1;
 }

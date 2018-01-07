@@ -1,4 +1,4 @@
-/* codegen.h */
+/* codegen.h codegen.c 用のヘッダーファイル */
 
 typedef enum { /* 中間言語みたいなもの */
   str, /* ストア */
@@ -20,4 +20,4 @@ extern int gencode_arg_V(Opr o, int value); /* 引数として値そのもの */
 extern int gencode_arg_V_ST(Opr o, int value, int ptr);
 extern int next_code(); /* 次の行番号を求める */
 extern void list_code(FILE *fp, int n_flag); /* アセンブリコード出力 */
-extern void backpatch(int code_lineno); /* バックパッチ用 */
+extern void backpatch(int code_address); /* バックパッチ用 */
