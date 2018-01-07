@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
       break;
     }
   }
-  
+
   if (optind >= argc) {
     fprintf(stderr, "ソースプログラムのファイル名を指定してください\n");
     exit(EXIT_FAILURE);
@@ -122,7 +122,7 @@ int main(int argc, char *argv[]) {
 }
 
 void parse_Program() {
-  /* <Program> -> <Block> T_PRIOD */ 
+  /* <Program> -> <Block> T_PRIOD */
   parse_Block();
   if (nextToken != T_PERIOD)
     pl0_error(yytext, line_no, "ピリオドでない");
@@ -265,7 +265,7 @@ void parse_FuncDecl() {
   /* <FuncDecl> -> T_FUNC T_ID T_LPAR <FuncDeclIdList> T_RPAR <Block> T_SEMIC */
   char func_name[MAX_ID_NAME];
   int func_ptr; /* 現在処理している関数の記号表での位置 */
-  
+
   /* T_FUNC では何もしない。次のトークンを読む */
   nextToken = getToken();
   if (nextToken != T_ID)
@@ -374,7 +374,7 @@ void parse_Statement() {
     break;
   case T_WHILE: /* while do */
     nextToken = getToken();
-    backpatch_while1 = next_code(); /* while の条件先頭 */
+    backpatch_while1 = next_code_address(); /* while の条件先頭 */
     parse_Condition();
     if (nextToken != T_DO)
       pl0_error(yytext, line_no, "doがない");
@@ -528,7 +528,7 @@ void parse_Factor() {
   int n_args = 0; /* 引数のカウント用 */
   struct table_entry t_ent;
   char id_name[MAX_ID_NAME];
-  
+
   switch(nextToken) {
   case T_ID:
     strcpy(id_name, yytext);

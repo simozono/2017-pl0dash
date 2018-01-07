@@ -27,7 +27,7 @@ int gencode_arg_ST(Opr o, int ptr); /* 引数として記号表番号 */
 int gencode_arg_V(Opr o, int value); /* 引数として値そのもの */
 int gencode_arg_V_ST(Opr o, int value, int ptr); /* 引数として値と記号表番号 */
 
-int next_code(); /* 次の命令が入る番地を求める */
+int next_code_address(); /* 次の命令が入る番地を求める */
 void list_code(FILE *fp, int n_flag); /* コードの出力 */
 void backpatch(int code_address); /* バックパッチ用 */
 
@@ -231,6 +231,6 @@ void backpatch(int code_address) { /* 現在のコードの次の番地をバッ
   code[code_address].address = last_code_address+1;
 }
 
-int next_code() { /* 現在の次の番地を返す */
+int next_code_address() { /* 現在の次の番地を返す */
   return last_code_address+1;
 }
