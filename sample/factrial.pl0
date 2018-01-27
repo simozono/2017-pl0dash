@@ -1,0 +1,17 @@
+const n = 3;
+
+function fact(x)
+  var ret;
+  begin
+    ret := 1;
+    if x > 1 then
+      begin
+        ret :=  x * fact(x - 1);
+      end;
+    return ret;
+  end;
+
+begin
+  write fact(n);
+  writeln;
+end.
